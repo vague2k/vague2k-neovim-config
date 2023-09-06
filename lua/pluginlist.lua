@@ -70,4 +70,7 @@ return {
             require'alpha'.setup(require'alpha.themes.startify'.config)
         end
     },
+    {
+        'akinsho/toggleterm.nvim', version = "*", config = true
+    },
 }
