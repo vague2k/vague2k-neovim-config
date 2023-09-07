@@ -1,3 +1,6 @@
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
 local on_attach = function(_, bufnr)
 
     local bufmap = function(keys, func)
@@ -23,9 +26,7 @@ local on_attach = function(_, bufnr)
     end, {})
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
+-- mason setup --
 require("mason").setup()
 require("mason-lspconfig").setup_handlers({
 
@@ -54,9 +55,16 @@ require("mason-lspconfig").setup_handlers({
         require('lspconfig').astro.setup {
             on_attach = on_attach,
             capabilities = capabilities,
+            dependecies = 'tsserver'
         }
     end,
 
+    ['tsserver'] = function()
+        require('lspconfig').tsserver.setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+        }
+    end,
 
     ['pyright'] = function()
         require('lspconfig').pyright.setup {
@@ -70,7 +78,7 @@ require("mason-lspconfig").setup_handlers({
             on_attach = on_attach,
             capabilities = capabilities,
         }
-    end, 
+    end,
 
     ['eslint'] = function()
         require('lspconfig').eslint.setup {
