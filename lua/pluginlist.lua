@@ -6,14 +6,27 @@ return {
 		end
 	},
     {
-        'AlessandroYorba/sierra',
+        'aktersnurra/no-clown-fiesta.nvim',
         priority = 1000,
         config = function()
-            vim.cmd([[ colorscheme sierra ]])
+            vim.cmd([[ colorscheme no-clown-fiesta ]])
 
             vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
             vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
         end,
+    },
+    {
+        -- I have a background on my terminal, set at low transparency
+        -- If you don't, I wouldn't reccommend installing this plugin
+        'xiyaowong/nvim-transparent',
+        config = function()
+            require("transparent").setup {
+            extra_groups = {
+                    'NormalFloat',
+                    'NvimTreeNormal'
+                },
+            }
+        end
     },
     {
         'nvim-lualine/lualine.nvim',
