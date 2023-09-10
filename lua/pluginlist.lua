@@ -1,19 +1,62 @@
 return {
-	{
-		'numToStr/Comment.nvim',
-		config = function()
-			require('Comment').setup()
-		end
-	},
     {
-        'aktersnurra/no-clown-fiesta.nvim',
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup()
+        end
+    },
+    {
+        -- Theme config --
+        'ramojus/mellifluous.nvim',
         priority = 1000,
         config = function()
-            vim.cmd([[ colorscheme no-clown-fiesta ]])
+            require('mellifluous').setup({
+                dim_inactive = false,
+                color_set = 'mellifluous',
+                styles = { -- see :h attr-list for options. set {} for NONE, { option = true } for option
+                    comments = { italic = true },
+                    conditionals = {},
+                    folds = {},
+                    loops = {},
+                    functions = {},
+                    keywords = {},
+                    strings = {},
+                    variables = {},
+                    numbers = {},
+                    booleans = {},
+                    properties = {},
+                    types = {},
+                    operators = {},
+                },
+                transparent_background = {
+                    enabled = true,
+                    floating_windows = true,
+                    telescope = true,
+                    file_tree = true,
+                    cursor_line = true,
+                    status_line = false,
+                },
+                plugins = {
+                    cmp = true,
+                    gitsigns = true,
+                    indent_blankline = true,
+                    nvim_tree = {
+                        enabled = true,
+                        show_root = true,
+                    },
+                    telescope = {
+                        enabled = true,
+                        nvchad_like = true,
+                    },
+                    startify = true,
+                },
+            })
+
+            vim.cmd([[ colorscheme mellifluous ]])
 
             vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
             vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-        end,
+        end
     },
     {
         -- I have a background on my terminal, set at low transparency
