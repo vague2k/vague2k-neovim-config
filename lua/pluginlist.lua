@@ -7,52 +7,34 @@ return {
     },
     {
         -- Theme config --
-        'ramojus/mellifluous.nvim',
+        'ellisonleao/gruvbox.nvim',
         priority = 1000,
         config = function()
-            require('mellifluous').setup({
+            -- setup must be called before loading the colorscheme
+            -- These are all the default options set to my own tastes:
+            require("gruvbox").setup({
+                undercurl = true,
+                underline = true,
+                bold = false,
+                italic = {
+                    strings = true,
+                    comments = true,
+                    operators = false,
+                    folds = true,
+                },
+                strikethrough = true,
+                invert_selection = false,
+                invert_signs = false,
+                invert_tabline = false,
+                invert_intend_guides = false,
+                inverse = true, -- invert background for search, diffs, statuslines and errors
+                contrast = "soft", -- can be "hard", "soft" or empty string
+                palette_overrides = {},
+                overrides = {},
                 dim_inactive = false,
-                color_set = 'mellifluous',
-                styles = { -- see :h attr-list for options. set {} for NONE, { option = true } for option
-                    comments = { italic = true },
-                    conditionals = {},
-                    folds = {},
-                    loops = {},
-                    functions = {},
-                    keywords = {},
-                    strings = {},
-                    variables = {},
-                    numbers = {},
-                    booleans = {},
-                    properties = {},
-                    types = {},
-                    operators = {},
-                },
-                transparent_background = {
-                    enabled = true,
-                    floating_windows = true,
-                    telescope = true,
-                    file_tree = true,
-                    cursor_line = true,
-                    status_line = false,
-                },
-                plugins = {
-                    cmp = true,
-                    gitsigns = true,
-                    indent_blankline = true,
-                    nvim_tree = {
-                        enabled = true,
-                        show_root = true,
-                    },
-                    telescope = {
-                        enabled = true,
-                        nvchad_like = true,
-                    },
-                    startify = true,
-                },
+                transparent_mode = false,
             })
-
-            vim.cmd([[ colorscheme mellifluous ]])
+            vim.cmd([[ colorscheme gruvbox ]])
 
             vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
             vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
