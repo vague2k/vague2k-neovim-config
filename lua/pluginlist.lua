@@ -1,12 +1,6 @@
 return {
     {
-        'numToStr/Comment.nvim',
-        config = function()
-            require('Comment').setup()
-        end
-    },
-    {
-        -- Theme config --
+------- Theme config --
         'ellisonleao/gruvbox.nvim',
         priority = 1000,
         config = function()
@@ -40,31 +34,8 @@ return {
             vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
         end
     },
-    {
-        -- I have a background on my terminal, set at low transparency
-        -- If you don't, I wouldn't reccommend installing this plugin
-        'xiyaowong/nvim-transparent',
-        config = function()
-            require("transparent").setup {
-            extra_groups = {
-                    'NormalFloat',
-                    'NvimTreeNormal'
-                },
-            }
-        end
-    },
-    {
-        'nvim-lualine/lualine.nvim',
-        dependecies = {
-            'nvim-tree/nvim-web-devicons'
-        },
-        config = function()
-            require('lualine').setup({
-                icons_enabled = true,
-                theme = 'aurora',
-            })
-        end
-    },
+
+------- LSP, auto cmp, and treesitter syntax highlighting --
     {
         'williamboman/mason.nvim',
         'williamboman/mason-lspconfig.nvim',
@@ -84,15 +55,54 @@ return {
         },
     },
     {
+        'nvim-treesitter/nvim-treesitter',
+        build = ':TSUpdate',
+    },
+
+------- Telescope for easy file search & fzf --
+    {
         'nvim-telescope/telescope.nvim', tag = '0.1.2',
         dependencies = {
             'nvim-lua/plenary.nvim',
         },
     },
+
+------- For easy commenting of lines and such --
     {
-        'nvim-treesitter/nvim-treesitter',
-        build = ':TSUpdate',
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup()
+        end
     },
+
+------- Transparent background if I ever want to toggle it --
+    {
+        'xiyaowong/nvim-transparent',
+        config = function()
+            require("transparent").setup {
+            extra_groups = {
+                    'NormalFloat',
+                    'NvimTreeNormal'
+                },
+            }
+        end
+    },
+
+------- My status line of choice --
+    {
+        'nvim-lualine/lualine.nvim',
+        dependecies = {
+            'nvim-tree/nvim-web-devicons'
+        },
+        config = function()
+            require('lualine').setup({
+                icons_enabled = true,
+                theme = 'aurora',
+            })
+        end
+    },
+
+------- File tree -- 
     {
         "nvim-tree/nvim-tree.lua",
         version = "*",
@@ -101,6 +111,8 @@ return {
             "nvim-tree/nvim-web-devicons",
         },
     },
+
+------- Welcome screen for easy access to frequented files/dirs --
     {
         'goolord/alpha-nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
@@ -108,7 +120,16 @@ return {
             require'alpha'.setup(require'alpha.themes.startify'.config)
         end
     },
+
+------- Terminal emulator -- 
     {
         'akinsho/toggleterm.nvim', version = "*", config = true
+    },
+
+------- Auto cmp on (), [], {} -- 
+    {
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        opts = {} -- this is equalent to setup({}) function
     },
 }
