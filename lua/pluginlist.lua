@@ -126,10 +126,13 @@ return {
         'akinsho/toggleterm.nvim', version = "*", config = true
     },
 
-------- Auto cmp on (), [], {} -- 
+------- Auto cmp on (), [], {} and html tags! -- 
     {
         'windwp/nvim-autopairs',
         event = "InsertEnter",
         opts = {} -- this is equalent to setup({}) function
     },
+    {
+        'windwp/nvim-ts-autotag'
+    }
 }
