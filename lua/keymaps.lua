@@ -29,6 +29,9 @@ keymap("v", "<A-k>", ":m '<-2<CR>gv=gv", opts)
 -- whatever you yank, stays persistent even if copied on top of another word 
 keymap("v", "p", '"_dP', opts)
 
+-- Yank whatever is selected onto the "clipboard" 
+keymap("v", "<C-c>", '"+y', opts)
+
 
 
 

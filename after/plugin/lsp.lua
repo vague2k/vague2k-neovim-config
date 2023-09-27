@@ -1,5 +1,6 @@
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+local lspconfig = require('lspconfig')
+local cmp_nvim_lsp = require('cmp_nvim_lsp')
+local capabilities = cmp_nvim_lsp.default_capabilities()
 
 local on_attach = function(_, bufnr)
 
@@ -19,8 +20,11 @@ local on_attach = function(_, bufnr)
     bufmap('gr', require('telescope.builtin').lsp_references)
     bufmap('<leader>s', require('telescope.builtin').lsp_document_symbols)
     bufmap('<leader>S', require('telescope.builtin').lsp_dynamic_workspace_symbols)
-    bufmap('<leader>d', ':Telescope diagnostics bufnr=0<CR>')
-    bufmap('<leader>D', vim.diagnostic.open_float)
+
+    bufmap('<leader>dl', ':Telescope diagnostics bufnr=0<CR>')
+    bufmap('<leader>d', vim.diagnostic.open_float)
+    bufmap('<leader>dn', vim.diagnostic.goto_next)
+    bufmap('<leader>dp', vim.diagnostic.goto_prev)
 
     vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
         vim.lsp.buf.format()
@@ -28,86 +32,44 @@ local on_attach = function(_, bufnr)
 end
 
 -- mason setup --
+local default_setup = function(server)
+    lspconfig[server].setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+    })
+end
+
 require("mason").setup()
-require("mason-lspconfig").setup_handlers({
+require('mason-lspconfig').setup({
 
-    function(server_name)
-        require("lspconfig")[server_name].setup {
-            on_attach = on_attach,
-            capabilities = capabilities
-        }
-    end,
+    ensure_installed = {
+        'lua_ls',
+        'tsserver',
+        'astro',
+        'gopls',
+        'pyright',
+        'cssls',
+        'tailwindcss',
+    },
 
-    ["lua_ls"] = function()
-        require('neodev').setup()
-        require('lspconfig').lua_ls.setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            settings = {
-                Lua = {
-                    workspace = { checkThirdParty = false },
-                    telemetry = { enable = false },
-                },
+    handlers = {
+        default_setup,
+
+        lua_ls = function()
+            require('neodev').setup()
+            require('lspconfig').lua_ls.setup {
+                on_attach = on_attach,
+                capabilities = capabilities,
+                settings = {
+                    Lua = {
+                        diagnostics = {
+                            globals = { 'vim' }
+                        },
+                        workspace = { checkThirdParty = false },
+                        telemetry = { enable = false },
+                    },
+                }
             }
-        }
-    end,
-
-    ['astro'] = function()
-        require('lspconfig').astro.setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            dependecies = 'tsserver'
-        }
-    end,
-
-    ['tsserver'] = function()
-        require('lspconfig').tsserver.setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-        }
-    end,
-
-    ['pyright'] = function()
-        require('lspconfig').pyright.setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-        }
-    end,
-
-    ['gopls'] = function()
-        require('lspconfig').gopls.setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-        }
-    end,
-
-    ['eslint'] = function()
-        require('lspconfig').eslint.setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-        }
-    end,
-
-    ['tailwindcss'] = function()
-        require('lspconfig').tailwindcss.setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-        }
-    end,
-
-    ['yamlls'] = function()
-        require('lspconfig').yamlls.setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-        }
-    end,
-
+        end,
+    }
 })
-
-
-
-
-
-
-
-

@@ -1,38 +1,50 @@
 local cmp = require('cmp')
 local luasnip = require('luasnip')
+local cmp_buffer = require('cmp_buffer')
+local compare = require('cmp.config.compare')
 
 require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
 
-local cmp_kinds = {
-  Text = '  ',
-  Method = '  ',
-  Function = '  ',
-  Constructor = '  ',
-  Field = '  ',
-  Variable = '  ',
-  Class = '  ',
-  Interface = '  ',
-  Module = '  ',
-  Property = '  ',
-  Unit = '  ',
-  Value = '  ',
-  Enum = '  ',
-  Keyword = '  ',
-  Snippet = '  ',
-  Color = '  ',
-  File = '  ',
-  Reference = '  ',
-  Folder = '  ',
-  EnumMember = '  ',
-  Constant = '  ',
-  Struct = '  ',
-  Event = '  ',
-  Operator = '  ',
-  TypeParameter = '  ',
+local icons = {
+    Array = '  ',
+    Boolean = '  ',
+    Class = '  ',
+    Color = '  ',
+    Constant = '  ',
+    Constructor = '  ',
+    Enum = '  ',
+    EnumMember = '  ',
+    Event = '  ',
+    Field = '  ',
+    File = '  ',
+    Folder = '  ',
+    Function = '  ',
+    Interface = '  ',
+    Key = '  ',
+    Keyword = '  ',
+    Method = '  ',
+    Module = '  ',
+    Namespace = '  ',
+    Null = ' ﳠ ',
+    Number = '  ',
+    Object = '  ',
+    Operator = '  ',
+    Package = '  ',
+    Property = '  ',
+    Reference = '  ',
+    Snippet = '  ',
+    String = '  ',
+    Struct = '  ',
+    Text = '  ',
+    TypeParameter = '  ',
+    Unit = '  ',
+    Value = '  ',
+    Variable = '  ',
 }
 
-cmp.setup {
+cmp.setup({
+
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -40,10 +52,19 @@ cmp.setup {
     },
 
     formatting = {
-        format = function(_, vim_item)
-            vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. vim_item.kind
-            return vim_item
-        end,
+        fields = {'menu', 'abbr', 'kind'},
+        format = function(entry, item)
+            item.kind = (icons[item.kind] or '') .. item.kind
+            item.menu = ({
+                nvim_lsp = '[LSP]',
+                buffer = '[Buffer]',
+                luasnip = '[Snippet]',
+                nvim_lua = '[API]',
+                path = '[Path]',
+                rg = '[RG]',
+            })[entry.source.name]
+            return item
+        end
     },
 
     window = {
@@ -81,8 +102,12 @@ cmp.setup {
         end, { 'i', 's' }),
     },
 
-    sources = {
+    sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
-    },
-}
+        { name = 'nvim_lua' },
+        { name = 'buffer' },
+        { name = 'path' },
+    }),
+
+})
