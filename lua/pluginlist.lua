@@ -7,27 +7,13 @@ return {
             -- setup must be called before loading the colorscheme
             -- These are all the default options set to my own tastes:
             require('kanagawa').setup({
-                compile = false,             -- enable compiling the colorscheme
-                undercurl = true,            -- enable undercurls
-                commentStyle = { italic = true },
-                functionStyle = {},
                 keywordStyle = { italic = false },
                 statementStyle = { bold = false },
-                typeStyle = {},
-                transparent = false,         -- do not set background color
-                dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
-                terminalColors = true,       -- define vim.g.terminal_color_{0,17}
-                colors = {                   -- add/modify theme and palette colors
-                    palette = {},
-                    theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
-                },
-                theme = "dragon",            -- Load "dragon" theme when 'background' option is not set
-                background = {               -- map the value of 'background' option to a theme
-                    dark = "dragon",         -- try "dragon" !
-                    light = "lotus"
+                colors = {
+                    theme = { dragon = { ui = { float = { 'none' } } }},
                 },
             })
-            vim.cmd([[ colorscheme kanagawa]])
+            vim.cmd([[ colorscheme kanagawa-dragon ]])
 
             vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
             vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
@@ -35,6 +21,7 @@ return {
     },
 
 ------- LSP, auto cmp, and treesitter syntax highlighting --
+    {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
     {'williamboman/mason.nvim'},
     {'williamboman/mason-lspconfig.nvim'},
     {'neovim/nvim-lspconfig'},
@@ -45,7 +32,6 @@ return {
         dependencies = {
             'hrsh7th/cmp-nvim-lsp',
             'L3MON4D3/LuaSnip',
-            'hrsh7th/cmp-buffer',
             'hrsh7th/cmp-nvim-lua',
             'lukas-reineke/cmp-rg',
 
@@ -57,8 +43,8 @@ return {
     {
         'nvim-telescope/telescope.nvim', tag = '0.1.2',
         dependencies = {
-            'nvim-lua/plenary.nvim',
             { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+            'nvim-lua/plenary.nvim',
             'nvim-tree/nvim-web-devicons',
         },
     },
@@ -73,19 +59,6 @@ return {
             require('Comment').setup()
         end
     },
-
-------- Transparent background if I ever want to toggle it --
-    -- {
-    --     'xiyaowong/nvim-transparent',
-    --     config = function()
-    --         require("transparent").setup {
-    --         extra_groups = {
-    --                 'NormalFloat',
-    --                 'NvimTreeNormal'
-    --             },
-    --         }
-    --     end
-    -- },
 
 ------- My status line of choice --
     {
