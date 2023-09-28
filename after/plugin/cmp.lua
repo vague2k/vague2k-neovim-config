@@ -1,7 +1,5 @@
 local cmp = require('cmp')
 local luasnip = require('luasnip')
-local cmp_buffer = require('cmp_buffer')
-local compare = require('cmp.config.compare')
 
 require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
