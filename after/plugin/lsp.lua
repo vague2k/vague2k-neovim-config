@@ -30,15 +30,6 @@ lsp_zero.on_attach(
 
 )
 
-local function organize_imports()
-    local params = {
-        command = '_typescript.organizeImports',
-        arguments = { vim.api.nvim_buf_get_name(0) }
-    }
-    vim.lsp.buf.execute_command(params)
-
-end
-
 lsp_zero.setup()
 
 require('mason').setup({})
@@ -69,23 +60,6 @@ require('mason-lspconfig').setup({
                         workspace = { checkThirdParty = false },
                         telemetry = { enable = false },
                     },
-                }
-            }
-        end,
-
-
-        tsserver = function()
-            require('lspconfig').tsserver.setup {
-                init_options = {
-                    preferences = {
-                        disableSuggestions = true,
-
-                    }
-                },
-                command = {
-                    OrganizeImports = {
-                        organize_imports
-                    }
                 }
             }
         end,

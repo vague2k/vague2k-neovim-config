@@ -1,7 +1,3 @@
-local telescope = require('telescope')
-
-telescope.load_extension('fzf')
-
 -- set telescope keymaps --
 local keymap = function(mode, key, func, opts)
     vim.keymap.set(mode, key, func, opts)
