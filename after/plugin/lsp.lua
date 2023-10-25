@@ -44,6 +44,7 @@ require('mason-lspconfig').setup({
         'pyright',
         'cssls',
         'tailwindcss',
+        'rust_analyzer'
     },
 
     handlers = {
