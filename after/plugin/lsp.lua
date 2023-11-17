@@ -22,8 +22,7 @@ lsp_zero.on_attach(function(_, bufnr)
     bufmap("<leader>d", vim.diagnostic.open_float)
     bufmap("<leader>dn", vim.diagnostic.goto_next)
     bufmap("<leader>dp", vim.diagnostic.goto_prev)
-end
-)
+end)
 
 lsp_zero.setup()
 
@@ -57,6 +56,21 @@ require("mason-lspconfig").setup({
                         telemetry = { enable = false },
                     },
                 },
+            })
+        end,
+
+        tsserver = function()
+            require("lspconfig").tsserver.setup({
+
+                -- organize imports on save
+                vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+                    callback = function()
+                        vim.lsp.buf.execute_command({
+                            command = "_typescript.organizeImports",
+                            arguments = { vim.fn.expand("%:p") },
+                        })
+                    end,
+                }),
             })
         end,
     },
