@@ -75,7 +75,4 @@ return {
         opts = {}, -- this is equalent to setup({}) function
     },
     { "windwp/nvim-ts-autotag" },
-
-    -- plugin specific for astro js
-    { "wuelnerdotexe/vim-astro" },
 }
