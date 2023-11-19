@@ -1,79 +1,64 @@
 return {
+    -- colorscheme
     {
-        ------- Theme config --
-        'rebelot/kanagawa.nvim',
+        "deparr/tairiki.nvim",
+        lazy = false,
         priority = 1000,
-        config = function()
-            -- setup must be called before loading the colorscheme
-            -- These are all the default options set to my own tastes:
-            require('kanagawa').setup({
-                keywordStyle = { italic = false },
-                statementStyle = { bold = false },
-                colors = {
-                    theme = { dragon = { ui = { float = { 'none' } } }},
-                },
-            })
-            vim.cmd([[ colorscheme kanagawa-dragon ]])
-
-            vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
-            vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
-        end
     },
 
-------- LSP, auto cmp, and treesitter syntax highlighting --
-    {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
-    {'williamboman/mason.nvim'},
-    {'williamboman/mason-lspconfig.nvim'},
-    {'neovim/nvim-lspconfig'},
-    {'antosha417/nvim-lsp-file-operations', config = true},
-    {'folke/neodev.nvim'},
-    {
-        'hrsh7th/nvim-cmp',
-        dependencies = {
-            'hrsh7th/cmp-nvim-lsp',
-            'L3MON4D3/LuaSnip',
-            'hrsh7th/cmp-nvim-lua',
-            'lukas-reineke/cmp-rg',
+    -- LSP
+    { "VonHeikemen/lsp-zero.nvim", branch = "v3.x" },
+    { "williamboman/mason.nvim" },
+    { "williamboman/mason-lspconfig.nvim" },
+    { "neovim/nvim-lspconfig" },
+    { "antosha417/nvim-lsp-file-operations", config = true },
+    { "folke/neodev.nvim" },
 
-        },
-    },
-    { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate', },
-
-------- Telescope for easy file search & fzf --
+    -- auto complete
     {
-        'nvim-telescope/telescope.nvim', tag = '0.1.2',
+        "hrsh7th/nvim-cmp",
         dependencies = {
-            'nvim-lua/plenary.nvim',
-            'nvim-tree/nvim-web-devicons',
+            "hrsh7th/cmp-nvim-lsp",
+            "L3MON4D3/LuaSnip",
+            "hrsh7th/cmp-nvim-lua",
+            "lukas-reineke/cmp-rg",
         },
     },
 
-------- Dressing.nvim for better ui for vim.ui.input/.select
-    { 'stevearc/dressing.nvim', },
+    -- syntax highlighting
+    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 
-------- For easy commenting of lines and such --
+    -- formatting
+    { "stevearc/conform.nvim", event = { "BufReadPre", "BufNewFile" } },
+
+    -- linting
+    { "mfussenegger/nvim-lint", event = { "BufReadPre", "BufNewFile" } },
+
+    -- telescope fzf
     {
-        'numToStr/Comment.nvim',
-        config = function()
-            require('Comment').setup()
-        end
+        "nvim-telescope/telescope.nvim",
+        tag = "0.1.2",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons",
+        },
     },
 
-------- My status line of choice --
+    -- dressing.nvim for better ui for vim.ui.input/.select
+    { "stevearc/dressing.nvim" },
+
+    -- for easy commenting of lines and such
+    { "numToStr/Comment.nvim" },
+
+    -- my status line of choice
     {
-        'nvim-lualine/lualine.nvim',
+        "nvim-lualine/lualine.nvim",
         dependecies = {
-            'nvim-tree/nvim-web-devicons'
+            "nvim-tree/nvim-web-devicons",
         },
-        config = function()
-            require('lualine').setup({
-                icons_enabled = true,
-                theme = 'aurora',
-            })
-        end
     },
 
-------- File tree -- 
+    -- file tree
     {
         "nvim-tree/nvim-tree.lua",
         version = "*",
@@ -83,23 +68,11 @@ return {
         },
     },
 
-------- Welcome screen for easy access to frequented files/dirs --
+    -- Auto cmp on (), [], {} and html tags!
     {
-        'goolord/alpha-nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
-        config = function ()
-            require'alpha'.setup(require'alpha.themes.startify'.config)
-        end
-    },
-
-------- Terminal emulator -- 
-    { 'akinsho/toggleterm.nvim', version = "*", config = true },
-
-------- Auto cmp on (), [], {} and html tags! -- 
-    {
-        'windwp/nvim-autopairs',
+        "windwp/nvim-autopairs",
         event = "InsertEnter",
-        opts = {} -- this is equalent to setup({}) function
+        opts = {}, -- this is equalent to setup({}) function
     },
-    { 'windwp/nvim-ts-autotag' }
+    { "windwp/nvim-ts-autotag" },
 }
