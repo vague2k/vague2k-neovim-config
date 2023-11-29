@@ -73,5 +73,16 @@ require("mason-lspconfig").setup({
                 }),
             })
         end,
+
+        tailwindcss = function()
+            local on_attach = function(_, bufnr)
+                -- show specific tailwind class name colors whenever we attach to tailwind lsp
+                require("tailwindcss-colors").buf_attach(bufnr)
+            end
+
+            require("lspconfig").tailwindcss.setup({
+                on_attach = on_attach,
+            })
+        end,
     },
 })
