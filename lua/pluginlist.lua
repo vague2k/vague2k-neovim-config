@@ -91,4 +91,5 @@ return {
         config = true,
     },
     { "themaxmarchuk/tailwindcss-colors.nvim" },
+    { "NTBBloodbath/color-converter.nvim" },
 }
