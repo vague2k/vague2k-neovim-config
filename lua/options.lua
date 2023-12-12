@@ -19,3 +19,6 @@ vim.o.hlsearch = false
 vim.o.incsearch = true
 
 vim.o.scrolloff = 8
+
+vim.o.swapfile = false
+vim.opt.shadafile = "NONE"
