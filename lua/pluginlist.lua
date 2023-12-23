@@ -1,6 +1,7 @@
 return {
     -- colorscheme
     {
+        { "rose-pine/neovim", name = "rose-pine" },
         "AlexvZyl/nordic.nvim",
         lazy = false,
         priority = 1000,
@@ -72,13 +73,14 @@ return {
         },
     },
 
-    -- Auto cmp on (), [], {} and html tags!
+    -- Auto cmp and fast wrap on (), [], {} and html tags!
     {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
         opts = {}, -- this is equalent to setup({}) function
     },
     { "windwp/nvim-ts-autotag" },
+    { "tpope/vim-surround" },
 
     -- color highlighting
     { "norcalli/nvim-colorizer.lua" },
@@ -92,4 +94,7 @@ return {
     },
     { "themaxmarchuk/tailwindcss-colors.nvim" },
     { "NTBBloodbath/color-converter.nvim" },
+
+    -- todo comments
+    { "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
 }
