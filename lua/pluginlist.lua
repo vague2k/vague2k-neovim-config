@@ -2,6 +2,7 @@ return {
     -- colorscheme
     {
         { "rose-pine/neovim", name = "rose-pine" },
+        "savq/melange-nvim",
         "AlexvZyl/nordic.nvim",
         lazy = false,
         priority = 1000,
